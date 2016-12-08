@@ -1,52 +1,53 @@
 library(dplyr)
 
-
-#logs_google_filtered$isRobotTXT <- FALSE
-
-# get all GET /robots.txt HTTP/1.1
-#logs_google_filtered$isRobotTXT[which(grepl("/robots.txt", logs_google_filtered$url))] <- TRUE
-
-# arrange by IP by Data
-logs_google_filtered <- arrange(logs_google_filtered, ip, date)
-
-
-# foreach IP
-caseid <- 1
-iptemp <- ""
-
-for (row in 1:nrow(logs_google_filtered)) { 
+prepareLogs <- function(logs,filename) {
   
-  ip <- logs_google_filtered$ip[row]
-  url <- logs_google_filtered$url[row] 
+  logs <- arrange(logs, ip, date)
   
-  print(ip)
+  # foreach IP
+  caseid <- 1
+  iptemp <- ""
   
-  if (grepl("/robots.txt", url)) {
-    caseid <- caseid + 1
+  for (row in 1:nrow(logs)) { 
+    
+    ip <- logs$ip[row]
+    url <- logs$url[row] 
+    
+    print(ip)
+    
+    if (grepl("/robots.txt", url)) {
+      caseid <- caseid + 1
+    }
+    
+    # create caseid
+    logs$caseid[row] <- caseid
+    
+    
+    if (ip!=iptemp) {
+      iptemp <- ip
+      caseid <- caseid + 1
+    }
+    
+    
   }
   
-  # create caseid
-  logs_google_filtered$caseid[row] <- caseid
+  write.csv2(logs,paste("./data/",filename,sep=""),row.names=FALSE)
   
-  #dates <- which(grepl("/robots.txt", logs_google_filtered$url) & logs_google_filtered$ip == ip)
-  
-  # which( m IP et dateIP< )  
-  #print(dates)
-  
-  if (ip!=iptemp) {
-    iptemp <- ip
-    caseid <- caseid + 1
-  }
-  
-  
-  
-  
+  return(logs)
 }
 
 
+# no line with robots.txt 
+#logs_google_mobile <- prepareLogs(logs_google_mobile,"google_mobile.csv")
 
+logs_google_desktop <- prepareLogs(logs_google_desktop,"google_desktop.csv")
 
+logs_bing <-  prepareLogs(logs_bing,"bing.csv") 
 
+logs_baidu <-  prepareLogs(logs_baidu,"baidu.csv") 
+logs_yandex <- prepareLogs(logs_yandex,"yandex.csv")
+
+logs_majestic <- prepareLogs(logs_majestic,"majestic.csv")
 
 
 
