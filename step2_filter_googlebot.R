@@ -55,6 +55,5 @@ logs_google_desktop <- merge(logs_google, logs_ip, by = "ip") %>%
                  filter(isGoogle == TRUE & !grepl("Mobile",useragent)) %>%
                  select(-isGoogle)
 
-logs_google_mobile <- merge(logs_google, logs_ip, by = "ip") %>%
-  filter(isGoogle == TRUE & grepl("Mobile",useragent)) %>%
-  select(-isGoogle)
+logs_robotstxt_shared <- filter(logs_google_desktop, grepl("robots.txt",url)) 
+

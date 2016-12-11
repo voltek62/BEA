@@ -38,7 +38,7 @@ prepareLogs <- function(logs,filename) {
 
 
 # no line with robots.txt 
-#logs_google_mobile <- prepareLogs(logs_google_mobile,"google_mobile.csv")
+logs_google_mobile <- prepareLogs(logs_google_mobile,"google_mobile.csv")
 
 logs_google_desktop <- prepareLogs(logs_google_desktop,"google_desktop.csv")
 
