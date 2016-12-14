@@ -1,5 +1,7 @@
 library(dplyr)
 
+dir.create(file.path("./data"), showWarnings = FALSE)
+
 # function to detect case and create caseid dimension
 prepareLogs <- function(logs,filename) {
   
