@@ -20,7 +20,7 @@ for(i in 1:nrow(logs_mobile_with_robotstxt)) {
     lastrobotstxt <- FALSE
   }  
   
-  # si decouvert robotstxt doublon, on retire
+  # detect extra robots.txt
   if (lastrobotstxt==TRUE) {
     logs_mobile_with_robotstxt$keep[i] <- FALSE  
   }
@@ -46,7 +46,7 @@ for(i in 1:nrow(logs_mobile_with_robotstxt)) {
 }
 
 
-#delete lines where two same lines robots.txt follow
+#delete lines where there are too extra robots.txt 
 logs_google_mobile <- logs_mobile_with_robotstxt[logs_mobile_with_robotstxt$keep,] %>%
                 select(-keep)
 
