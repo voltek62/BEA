@@ -25,17 +25,14 @@ for(i in 1:nrow(logs_mobile_with_robotstxt)) {
     logs_mobile_with_robotstxt$keep[i] <- FALSE  
   }
     
-  #print(logs_mobile_with_robotstxt$url[i])
-  
   if (logs_mobile_with_robotstxt$ip[i] != lastip) {
     lastrobotstxt <- FALSE
     lastip <- logs_mobile_with_robotstxt$ip[i]
-    print("new ip")
   }
   else {
     
     if(grepl("robots.txt",logs_mobile_with_robotstxt$url[i])) {
-      print("robots.txt detected ")
+      #print("robots.txt detected ")
       lastrobotstxt <- TRUE
       
       # if last url=robots.txt, we remove

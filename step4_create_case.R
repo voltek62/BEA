@@ -13,8 +13,6 @@ prepareLogs <- function(logs,filename) {
     ip <- logs$ip[row]
     url <- logs$url[row] 
     
-    print(ip)
-    
     if (grepl("/robots.txt", url)) {
       caseid <- caseid + 1
     }
